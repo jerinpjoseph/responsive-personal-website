@@ -71,10 +71,10 @@
               </div>
             </div>
             <div class="col-lg-8 mt-5 mt-lg-0">
-              <form role="form" class="php-email-form">
+              <form  id="submit-form" type="submit" action="" role="form" class="php-email-form">
                 <div class="row">
                   <div class="col-md-6 form-group">
-                    <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Your Name" required>
                   </div>
                   <div class="col-md-6 form-group mt-3 mt-md-0">
                     <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
@@ -84,14 +84,9 @@
                   <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
                 </div>
                 <div class="form-group mt-3">
-                  <textarea type="text" class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                  <textarea type="text" class="form-control" name="message" id="message" placeholder="Message" rows="5" required></textarea>
                 </div>
-                <div class="text-center"><button onclick="myFunction()">Send Message</button></div>
-                <script>
-                  function myFunction() {
-                  alert("The form is temporary unavailable!");
-                  }
-                  </script>
+                <div class="text-center"><button type="submit" value="submit">Send Message</button></div>
               </form>
             </div>
           </div>
@@ -119,5 +114,24 @@
     <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
     <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
     <script src="assets/js/main.js"></script>
+    <script>
+        $("#submit-form").submit((e)=>{
+            e.preventDefault()
+            $.ajax({
+                url:"https://script.google.com/macros/s/AKfycbwsDoqBapDWtZtf10umwd6-A-OLBOBzELMeitzaUkJ83nwzj_1mvuXmNdrzswgJKiOJ/exec",
+                data:$("#submit-form").serialize(),
+                method:"post",
+                success:function (response){
+                    alert("Form submitted successfully")
+                    window.location.reload()
+                    //window.location.href="https://google.com"
+                },
+                error:function (err){
+                    alert("Something Error")
+    
+                }
+            })
+        })
+    </script>
   </body>
 </html>
