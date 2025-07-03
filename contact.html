@@ -132,23 +132,31 @@
     <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
     <script src="assets/js/main.js"></script>
     <script>
-        $("#submit-form").submit((e)=>{
-            e.preventDefault()
-            $.ajax({
-                url:"https://script.google.com/macros/s/AKfycbwsDoqBapDWtZtf10umwd6-A-OLBOBzELMeitzaUkJ83nwzj_1mvuXmNdrzswgJKiOJ/exec",
-                data:$("#submit-form").serialize(),
-                method:"post",
-                success:function (response){
-                    alert("Form submitted successfully")
-                    window.location.reload()
-                    //window.location.href="https://google.com"
-                },
-                error:function (err){
-                    alert("Something Error")
-    
-                }
-            })
-        })
+      $("#submit-form").submit((e) => {
+        e.preventDefault();
+
+        $.ajax({
+          url: "https://script.google.com/macros/s/AKfycbwsDoqBapDWtZtf10umwd6-A-OLBOBzELMeitzaUkJ83nwzj_1mvuXmNdrzswgJKiOJ/exec",
+          data: $("#submit-form").serialize(),
+          method: "POST",
+          dataType: "json",
+          success: function (response) {
+            if (response.status === "success") {
+              alert("✅ " + response.message);
+              setTimeout(() => {
+                window.location.reload();
+              }, 3000);
+            } else {
+              alert("⚠️ Unexpected response. Please try again.");
+            }
+          },
+          error: function (xhr, status, error) {
+            console.error("AJAX Error:", status, error);
+            alert("❌ Failed to submit the form. Please try again later.");
+          }
+        });
+      });
     </script>
+
   </body>
 </html>
